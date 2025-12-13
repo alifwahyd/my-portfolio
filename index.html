@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alif Bin Wahid | Strategic Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- MODERN VARIABLES --- */
+        :root {
+            /* Light Mode Defaults */
+            --primary: #1e293b;
+            --secondary: #475569;
+            --accent: #2563eb;
+            --accent-light: rgba(37, 99, 235, 0.1);
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+        }
+
+        /* Dark Mode Overrides (Default) */
+        [data-theme="dark"] {
+            --primary: #f8fafc;   /* White/Off-White text */
+            --secondary: #cbd5e1; /* Light Slate text */
+            --accent: #60a5fa;    /* Brighter Blue for dark bg */
+            --accent-light: rgba(96, 165, 250, 0.15);
+            --bg: #0f172a;        /* Deep Slate Blue BG */
+            --card-bg: #1e293b;   /* Lighter Slate Card */
+            --border: #334155;    /* Border line */
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- GLOBAL STYLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        body { background-color: var(--bg); color: var(--primary); line-height: 1.6; padding-bottom: 80px; }
+        .container { max-width: 850px; margin: 0 auto; padding: 60px 20px; }
+
+        /* --- HEADER --- */
+        header { text-align: center; margin-bottom: 50px; }
+        h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; color: var(--primary); }
+        .tagline { color: var(--accent); font-weight: 600; font-size: 1.1rem; margin-bottom: 20px; }
+        .contact-links { display: inline-flex; gap: 20px; background: var(--card-bg); padding: 10px 25px; border-radius: 50px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .contact-links a { text-decoration: none; color: var(--secondary); font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+        .contact-links a:hover { color: var(--accent); }
+
+        /* --- SECTION LABELS --- */
+        .section-label { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--secondary); margin-bottom: 15px; display: block; margin-top: 40px; }
+        .section-label:first-of-type { margin-top: 0; }
+
+        /* --- CARD STYLES --- */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        /* --- SUMMARY SECTION --- */
+        .summary-content { padding: 30px; }
+        .summary-text { font-size: 1.05rem; color: var(--secondary); margin-bottom: 20px; leading-height: 1.8; }
+        .summary-text strong { color: var(--primary); font-weight: 600; }
+        
+        .objective-box {
+            background: var(--accent-light);
+            border-left: 4px solid var(--accent);
+            padding: 15px 20px;
+            border-radius: 0 6px 6px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .objective-icon { font-size: 1.5rem; color: var(--accent); }
+        .objective-text { font-size: 0.95rem; font-weight: 500; color: var(--primary); }
+        .objective-label { display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 2px; }
+
+        /* --- COMPANY HEADER --- */
+        .company-header {
+            padding: 25px 30px;
+            background: linear-gradient(to right, var(--accent-light), transparent);
+            border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .company-info h2 { font-size: 1.25rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        .company-info h2 i { color: var(--accent); }
+        .company-date { font-size: 0.9rem; font-weight: 600; color: var(--secondary); background: var(--bg); padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border); }
+
+        /* --- ROLE ITEM --- */
+        .role-item { border-bottom: 1px solid var(--border); }
+        .role-item:last-child { border-bottom: none; }
+
+        .role-summary {
+            padding: 25px 30px;
+            cursor: pointer;
+            display: flex; justify-content: space-between; align-items: flex-start;
+            transition: background-color 0.2s;
+        }
+        .role-summary:hover { background-color: rgba(255,255,255,0.05); }
+        .role-summary:hover .role-title { color: var(--accent); }
+
+        .role-main { flex: 1; padding-right: 20px; }
+        .role-title { font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; transition: color 0.2s; }
+        .role-desc { font-size: 0.95rem; color: var(--secondary); line-height: 1.5; }
+        
+        .role-arrow { 
+            color: var(--secondary); 
+            font-size: 1.2rem; 
+            margin-top: 5px; 
+            transition: transform 0.3s ease; 
+        }
+        .role-item.active .role-arrow { transform: rotate(180deg); color: var(--accent); }
+
+        /* --- EXPANDED DETAILS --- */
+        .role-details {
+            max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out;
+            background-color: var(--bg);
+        }
+        
+        .details-padding { padding: 30px; border-top: 1px dashed var(--border); }
+
+        .project-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; align-items: center; }
+        
+        .project-text h4 { font-size: 0.85rem; text-transform: uppercase; color: var(--accent); letter-spacing: 1px; margin-bottom: 15px; font-weight: 700; }
+        .project-text ul { list-style: none; }
+        .project-text li { position: relative; padding-left: 20px; margin-bottom: 10px; font-size: 0.95rem; color: var(--secondary); }
+        .project-text li::before { content: "•"; color: var(--accent); position: absolute; left: 0; font-weight: bold; }
+        
+        .chart-box { height: 220px; background: var(--card-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border); display: flex; justify-content: center; align-items: center; }
+
+        /* --- SKILLS PILLS --- */
+        .skills-wrapper { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill-pill { background: var(--card-bg); border: 1px solid var(--border); padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; color: var(--secondary); font-weight: 500; box-shadow: var(--shadow); }
+        
+        /* --- UTILS --- */
+        .controls { position: fixed; top: 20px; right: 20px; z-index: 100; display: flex; gap: 10px; }
+        .icon-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--card-bg); border: 1px solid var(--border); color: var(--primary); cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: var(--shadow); transition: transform 0.2s; }
+        .icon-btn:hover { transform: scale(1.1); color: var(--accent); }
+
+        @media (max-width: 768px) {
+            .project-grid { grid-template-columns: 1fr; }
+            .company-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .role-summary { flex-direction: column; }
+            .role-arrow { align-self: flex-end; margin-top: -20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="controls">
+    <button class="icon-btn" onclick="toggleTheme()" title="Toggle Light/Dark Mode"><i class="fas fa-sun"></i></button>
+    <button class="icon-btn" onclick="window.print()" title="Print Resume"><i class="fas fa-print"></i></button>
+</div>
+
+<div class="container">
+
+    <header>
+        <h1>Alif Bin Wahid</h1>
+        <div class="tagline">Tech & Transformation Lead | Data Analytics Specialist</div>
+        <div class="contact-links">
+            <a href="mailto:alif.bwahid@gmail.com"><i class="fas fa-envelope"></i> alif.bwahid@gmail.com</a>
+            <a href="https://www.linkedin.com/in/alifwahid/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="#"><i class="fas fa-map-marker-alt"></i> Selangor, MY</a>
+        </div>
+    </header>
+
+    <span class="section-label">Professional Summary</span>
+    <div class="card">
+        <div class="summary-content">
+            <p class="summary-text">
+                Strategic HR Transformation Lead with a robust foundation in <strong>Technology and Data Analytics</strong>. I apply an <strong>engineering mindset</strong> to solve complex human capital problems, moving organizations from manual operations to automated, data-driven ecosystems. My core expertise lies in bridging the gap between technical systems (Python, SQL, Automation) and strategic business goals.
+            </p>
+            <div class="objective-box">
+                <i class="fas fa-bullseye objective-icon"></i>
+                <div>
+                    <span class="objective-label">Career Focus</span>
+                    <span class="objective-text">Seeking to leverage technical expertise to drive <strong>Strategic HR Transformation</strong> and Organizational Effectiveness at a leadership level.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <span class="section-label">Experience</span>
+
+    <div class="card">
+        <div class="company-header">
+            <div class="company-info">
+                <h2><i class="fas fa-building"></i> Bank Simpanan Nasional (BSN)</h2>
+            </div>
+            <div class="company-date">Oct 2023 - Present</div>
+        </div>
+
+        <div class="role-item">
+            <div class="role-summary" onclick="toggleRole(this, 'chart1')">
+                <div class="role-main">
+                    <div class="role-title">Technology & Transformation Lead</div>
+                    <div class="role-desc">Spearheaded the digitalization of HR Promotion processes and developed predictive models for workforce planning.</div>
+                </div>
+                <div class="role-arrow"><i class="fas fa-chevron-down"></i></div>
+            </div>
+            
+            <div class="role-details">
+                <div class="details-padding">
+                    <div class="project-grid">
+                        <div class="project-text">
+                            <h4>Strategy & Execution</h4>
+                            <ul>
+                                <li><strong>Transformation:</strong> Re-engineered the promotion lifecycle, reducing end-to-end processing from 90 days to 35 days (65% efficiency gain).</li>
+                                <li><strong>Strategic Workforce Planning:</strong> Designed a Python-based predictive model for the Early Retirement Scheme (ERS), enabling Finance to forecast payouts with "Best Case" accuracy.</li>
+                            </ul>
+                        </div>
+                        <div class="chart-box">
+                            <canvas id="chart1"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="role-item">
+            <div class="role-summary" onclick="toggleRole(this, 'chart2')">
+                <div class="role-main">
+                    <div class="role-title">Organization Performance Lead</div>
+                    <div class="role-desc">Custodian of the Performance Management Framework. Audited and aligned 3,000+ KPIs across the bank.</div>
+                </div>
+                <div class="role-arrow"><i class="fas fa-chevron-down"></i></div>
+            </div>
+            
+            <div class="role-details">
+                <div class="details-padding">
+                    <div class="project-grid">
+                        <div class="project-text">
+                            <h4>Strategy & Accountability</h4>
+                            <ul>
+                                <li><strong>Strategic Alignment:</strong> Conducted a comprehensive audit of 3,000 KPIs to ensure 100% alignment with the Corporate Scorecard.</li>
+                                <li><strong>Culture Change:</strong> Facilitated workshops for Dept. Heads to shift focus from "Output" to "Outcome," standardizing the bank's Data Dictionary.</li>
+                            </ul>
+                        </div>
+                        <div class="chart-box">
+                            <canvas id="chart2"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="company-header">
+            <div class="company-info">
+                <h2><i class="fas fa-chart-pie"></i> Kantar Malaysia</h2>
+            </div>
+            <div class="company-date">Feb 2022 - Oct 2023</div>
+        </div>
+
+        <div class="role-item">
+            <div class="role-summary" onclick="toggleRole(this)">
+                <div class="role-main">
+                    <div class="role-title">Brand Guidance Associate (Data Analyst)</div>
+                    <div class="role-desc">Managed quantitative research for B2B Telco & FMCG clients. Moving beyond descriptive data to Key Driver Analysis.</div>
+                </div>
+                <div class="role-arrow"><i class="fas fa-chevron-down"></i></div>
+            </div>
+            <div class="role-details">
+                <div class="details-padding">
+                    <div class="project-grid" style="grid-template-columns: 1fr;">
+                        <div class="project-text">
+                            <h4>Methodology & Impact</h4>
+                            <ul>
+                                <li>Utilized SPSS and Regression Analysis to identify churn drivers for B2B SMEs.</li>
+                                <li>Discovered that "Service Reliability" outweighed "Price" as a key factor.</li>
+                                <li>Strategic recommendation shifted client focus from price wars to infrastructure marketing.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <span class="section-label">Technical Arsenal</span>
+    <div class="card" style="padding: 25px;">
+        <div class="skills-wrapper">
+            <div class="skill-pill">Strategic Planning</div>
+            <div class="skill-pill">HR Transformation</div>
+            <div class="skill-pill">Python (Pandas/NumPy)</div>
+            <div class="skill-pill">Power Automate</div>
+            <div class="skill-pill">SQL</div>
+            <div class="skill-pill">Tableau</div>
+            <div class="skill-pill">Predictive Modeling</div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleRole(element, chartId) {
+        const parent = element.parentElement;
+        const details = element.nextElementSibling;
+        parent.classList.toggle('active');
+        if (details.style.maxHeight) {
+            details.style.maxHeight = null;
+        } else {
+            details.style.maxHeight = details.scrollHeight + "px";
+            if(chartId) setTimeout(() => renderChart(chartId), 200);
+        }
+    }
+
+    let charts = {};
+    function renderChart(id) {
+        const ctx = document.getElementById(id);
+        if(!ctx) return;
+        if(charts[id]) charts[id].destroy();
+
+        const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+        // Ensure chart text is visible in dark mode
+        const textColor = isDark ? '#94a3b8' : '#475569';
+
+        if(id === 'chart1') {
+            charts[id] = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Manual', 'Digital'],
+                    datasets: [{
+                        label: 'Days', data: [90, 35],
+                        backgroundColor: ['#ef4444', '#22c55e'],
+                        borderRadius: 6, barThickness: 40
+                    }]
+                },
+                options: { 
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { 
+                        x: { ticks: { color: textColor }, grid: { display:false } }, 
+                        y: { display:false, min: 0 } 
+                    }
+                }
+            });
+        }
+        else if(id === 'chart2') {
+            charts[id] = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Aligned', 'Pending'],
+                    datasets: [{ 
+                        data: [3000, 0], 
+                        backgroundColor: ['#3b82f6', '#e2e8f0'], 
+                        borderWidth: 0 
+                    }]
+                },
+                options: { 
+                    responsive: true, maintainAspectRatio: false, cutout: '75%',
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+    }
+
+    function toggleTheme() {
+        const root = document.documentElement;
+        const current = root.getAttribute("data-theme");
+        const next = current === "dark" ? "light" : "dark";
+        root.setAttribute("data-theme", next);
+        
+        // Update Icon
+        const btn = document.querySelector('.controls .icon-btn i');
+        if(next === "dark") {
+             btn.classList.remove('fa-sun');
+             btn.classList.add('fa-moon');
+        } else {
+             btn.classList.remove('fa-moon');
+             btn.classList.add('fa-sun');
+        }
+
+        if(document.getElementById('chart1')) renderChart('chart1');
+        if(document.getElementById('chart2')) renderChart('chart2');
+    }
+</script>
+
+</body>
+</html>
