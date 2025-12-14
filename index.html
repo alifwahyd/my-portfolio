@@ -43,8 +43,8 @@
         /* --- HEADER --- */
         header { text-align: center; margin-bottom: 50px; }
         h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; color: var(--primary); }
-        .tagline { color: var(--accent); font-weight: 600; font-size: 1.1rem; margin-bottom: 20px; }
-        .contact-links { display: inline-flex; gap: 20px; background: var(--card-bg); padding: 10px 25px; border-radius: 50px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+        .tagline { color: var(--accent); font-weight: 600; font-size: 1.1rem; margin-bottom: 20px; display: block; }
+        .contact-links { display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 15px; background: var(--card-bg); padding: 10px 25px; border-radius: 50px; box-shadow: var(--shadow); border: 1px solid var(--border); }
         .contact-links a { text-decoration: none; color: var(--secondary); font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; gap: 8px; }
         .contact-links a:hover { color: var(--accent); }
 
@@ -76,7 +76,7 @@
             align-items: center;
             gap: 15px;
         }
-        .objective-icon { font-size: 1.5rem; color: var(--accent); }
+        .objective-icon { font-size: 1.5rem; color: var(--accent); flex-shrink: 0; }
         .objective-text { font-size: 0.95rem; font-weight: 500; color: var(--primary); }
         .objective-label { display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 2px; }
 
@@ -100,6 +100,8 @@
             cursor: pointer;
             display: flex; justify-content: space-between; align-items: flex-start;
             transition: background-color 0.2s;
+            /* Mobile touch target optimization */
+            min-height: 80px; 
         }
         .role-summary:hover { background-color: rgba(255,255,255,0.05); }
         .role-summary:hover .role-title { color: var(--accent); }
@@ -142,11 +144,36 @@
         .icon-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--card-bg); border: 1px solid var(--border); color: var(--primary); cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: var(--shadow); transition: transform 0.2s; }
         .icon-btn:hover { transform: scale(1.1); color: var(--accent); }
 
+        /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 768px) {
-            .project-grid { grid-template-columns: 1fr; }
-            .company-header { flex-direction: column; align-items: flex-start; gap: 10px; }
-            .role-summary { flex-direction: column; }
-            .role-arrow { align-self: flex-end; margin-top: -20px; }
+            .container { padding: 40px 15px; } /* Less padding on mobile */
+            
+            h1 { font-size: 1.8rem; } /* Smaller title */
+            
+            .company-header { 
+                flex-direction: column; 
+                align-items: flex-start; 
+                gap: 10px; 
+            }
+            
+            .role-summary { 
+                flex-direction: column; 
+            }
+            
+            .role-arrow { 
+                align-self: flex-end; 
+                margin-top: -15px; 
+            }
+            
+            /* Stack Grid Vertically */
+            .project-grid { 
+                grid-template-columns: 1fr; 
+                gap: 20px;
+            }
+            
+            .details-padding { padding: 20px; }
+            
+            .chart-box { margin-top: 10px; }
         }
     </style>
 </head>
